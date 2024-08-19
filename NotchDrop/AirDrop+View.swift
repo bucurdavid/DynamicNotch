@@ -12,10 +12,10 @@ import UniformTypeIdentifiers
 
 struct AirDropView: View {
     @StateObject var vm: NotchViewModel
-
+    
     @State var trigger: UUID = .init()
     @State var targeting = false
-
+    
     var body: some View {
         dropArea
             .onDrop(of: [.data], isTargeted: $targeting) { providers in
@@ -27,7 +27,7 @@ struct AirDropView: View {
                 return true
             }
     }
-
+    
     var dropArea: some View {
         ColorfulView(
             color: .init(get: {
@@ -55,7 +55,7 @@ struct AirDropView: View {
             value: trigger
         )
     }
-
+    
     var dropLabel: some View {
         VStack(spacing: 8) {
             Image(systemName: "airplayaudio")
@@ -82,7 +82,7 @@ struct AirDropView: View {
             }
         }
     }
-
+    
     func beginDrop(_ providers: [NSItemProvider]) {
         assert(!Thread.isMainThread)
         guard let urls = providers.interfaceConvert() else { return }
@@ -92,3 +92,4 @@ struct AirDropView: View {
         }
     }
 }
+

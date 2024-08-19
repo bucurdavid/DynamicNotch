@@ -17,6 +17,7 @@ struct NotchContentView: View {
             switch vm.contentType {
             case .normal:
                 HStack(spacing: vm.spacing) {
+                    CurrentMediaPlayerView(mediaPlayer: CurrentMediaPlayer())
                     AirDropView(vm: vm)
                     TrayView(vm: vm)
                 }
@@ -30,13 +31,14 @@ struct NotchContentView: View {
             }
         }
         .animation(vm.animation, value: vm.contentType)
+        
     }
 }
 
 #Preview {
     NotchContentView(vm: .init())
         .padding()
-        .frame(width: 600, height: 150, alignment: .center)
+        .frame(width: 600, height: 240, alignment: .center)
         .background(.black)
         .preferredColorScheme(.dark)
 }
