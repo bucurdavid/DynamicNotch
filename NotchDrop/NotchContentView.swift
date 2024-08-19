@@ -34,11 +34,3 @@ struct NotchContentView: View {
         
     }
 }
-
-#Preview {
-    NotchContentView(vm: .init())
-        .padding()
-        .frame(width: 600, height: 240, alignment: .center)
-        .background(.black)
-        .preferredColorScheme(.dark)
-}

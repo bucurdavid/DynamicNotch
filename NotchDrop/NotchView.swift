@@ -1,14 +1,8 @@
-//
-//  NotchView.swift
-//  NotchDrop
-//
-//  Created by 秋星桥 on 2024/7/7.
-//
-
 import SwiftUI
 
 struct NotchView: View {
     @StateObject var vm: NotchViewModel
+    @ObservedObject var mediaPlayer = CurrentMediaPlayer()
 
     @State var dropTargeting: Bool = false
 
@@ -29,6 +23,11 @@ struct NotchView: View {
                 width: vm.deviceNotchRect.width,
                 height: vm.deviceNotchRect.height + 4
             )
+        case .media:
+            return .init(
+                width: vm.deviceNotchRect.width + 60,
+                height:  abs(vm.deviceNotchRect.height - 28)
+            )
         }
     }
 
@@ -37,6 +36,7 @@ struct NotchView: View {
         case .closed: 8
         case .opened: 32
         case .popping: 10
+        case .media: 10
         }
     }
 
@@ -45,7 +45,8 @@ struct NotchView: View {
             notch
                 .zIndex(0)
                 .disabled(true)
-                .opacity(vm.notchVisible ? 1 : 0.3)
+                .opacity(vm.notchVisible ? 1 : 0.01) // If status is .media, set opacity to 0.3
+            
             Group {
                 if vm.status == .opened {
                     VStack(spacing: vm.spacing) {
@@ -55,7 +56,14 @@ struct NotchView: View {
                     }
                     .padding(vm.spacing)
                     .frame(maxWidth: vm.notchOpenedSize.width, maxHeight: vm.notchOpenedSize.height)
-                    .zIndex(1)
+                    .zIndex(1) // Ensure this is above the notch
+                } else if vm.status == .media {
+                     NotchMediaView(mediaPlayer: mediaPlayer)
+                    .frame(maxWidth: notchSize.width, maxHeight: notchSize.height)
+                    .padding(vm.spacing)
+                    .background(Color.black)
+                    .cornerRadius(notchCornerRadius)
+                   
                 }
             }
             .transition(
@@ -81,7 +89,7 @@ struct NotchView: View {
                 height: notchSize.height
             )
             .shadow(
-                color: .black.opacity(([.opened, .popping].contains(vm.status)) ? 1 : 0),
+                color: .black.opacity(([.opened, .popping, .media].contains(vm.status)) ? 1 : 0),
                 radius: 16
             )
     }
@@ -138,7 +146,7 @@ struct NotchView: View {
     @ViewBuilder
     var dragDetector: some View {
         RoundedRectangle(cornerRadius: notchCornerRadius)
-            .foregroundStyle(Color.black.opacity(0.001)) // fuck you apple and 0.001 is the smallest we can have
+            .foregroundStyle(Color.black.opacity(0.001)) // 0.001 is the smallest opacity possible
             .contentShape(Rectangle())
             .frame(width: notchSize.width + vm.dropDetectorRange, height: notchSize.height + vm.dropDetectorRange)
             .onDrop(of: [.data], isTargeted: $dropTargeting) { _ in true }
@@ -157,6 +165,4 @@ struct NotchView: View {
             }
             .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .top)
     }
-    
-
 }

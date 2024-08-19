@@ -7,11 +7,14 @@ import SwiftUI
 class NotchViewModel: NSObject, ObservableObject {
     var cancellables: Set<AnyCancellable> = []
     let inset: CGFloat
+    @Published var currentMediaPlayer: CurrentMediaPlayer?
 
     init(inset: CGFloat = -4) {
         self.inset = inset
         super.init()
+        self.currentMediaPlayer = CurrentMediaPlayer()
         setupCancellables()
+        
     }
 
     deinit {
@@ -30,6 +33,7 @@ class NotchViewModel: NSObject, ObservableObject {
         case closed
         case opened
         case popping
+        case media
     }
 
     enum OpenReason: String, Codable, Hashable, Equatable {
@@ -93,6 +97,11 @@ class NotchViewModel: NSObject, ObservableObject {
         status = .closed
         contentType = .normal
     }
+    
+    func notchMedia() {
+        openReason = .unknown
+        status = .media
+    }
 
     func showSettings() {
         contentType = .settings
@@ -102,4 +111,5 @@ class NotchViewModel: NSObject, ObservableObject {
         openReason = .unknown
         status = .popping
     }
+
 }

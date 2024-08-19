@@ -60,7 +60,16 @@ class CurrentMediaPlayer: NSObject, ObservableObject {
             if let artworkData = information["kMRMediaRemoteNowPlayingInfoArtworkData"] as? Data {
                 self.currentArtwork = NSImage(data: artworkData)
             }
-            self.isPlaying = self.currentSongTitle != "Not Playing"
+
+            // Check playback rate to determine if music is playing
+            if let playbackRate = information["kMRMediaRemoteNowPlayingInfoPlaybackRate"] as? Double {
+                self.isPlaying = playbackRate > 0.0
+             
+            } else {
+                self.isPlaying = false
+            }
+ 
+ 
         }
     }
 
@@ -68,21 +77,20 @@ class CurrentMediaPlayer: NSObject, ObservableObject {
 
     func playPause() {
         let MRMediaRemoteSendCommand = MediaRemoteProxy.proxyMRMediaRemoteSendCommand()
-            _ = MRMediaRemoteSendCommand?(2, nil)
+        _ = MRMediaRemoteSendCommand?(2, nil)
     }
 
     func nextTrack() {
         let MRMediaRemoteSendCommand = MediaRemoteProxy.proxyMRMediaRemoteSendCommand()
-            _ = MRMediaRemoteSendCommand?(4, nil)
+        _ = MRMediaRemoteSendCommand?(4, nil)
     }
 
     func previousTrack() {
         let MRMediaRemoteSendCommand = MediaRemoteProxy.proxyMRMediaRemoteSendCommand()
-            _ = MRMediaRemoteSendCommand?(5, nil)
+        _ = MRMediaRemoteSendCommand?(5, nil)
     }
-
-  
 }
+
 final class MediaRemoteProxy {
     private static let mediaRemoteBundle = CFBundleCreate(kCFAllocatorDefault, NSURL(fileURLWithPath: "/System/Library/PrivateFrameworks/MediaRemote.framework"))
     
