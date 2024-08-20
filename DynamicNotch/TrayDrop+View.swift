@@ -67,16 +67,20 @@ struct TrayView: View {
                 }
                 .padding()
             } else {
-                ScrollView(.horizontal) {
+                ScrollView(.horizontal, showsIndicators: false) {
                     HStack(spacing: vm.spacing) {
                         ForEach(tvm.items) { item in
                             DropItemView(item: item, vm: vm, tvm: tvm)
+                                .frame(width: 200, height: 200) // Adjust size as needed
+                                .background(Color.gray.opacity(0.1))
+                                .cornerRadius(12)
+                                .padding(.vertical, 20)
+                                .padding(.horizontal, 10)
                         }
                     }
-                    .padding(vm.spacing)
+                    .frame(maxWidth: .infinity)
                 }
                 .padding(-vm.spacing)
-                .scrollIndicators(.never)
             }
         }
     }
