@@ -2,7 +2,7 @@ import Cocoa
 import Foundation
 
 class CurrentMediaPlayer: NSObject, ObservableObject {
-    @Published var currentSongTitle: String = "Not Playing"
+    @Published var currentSongTitle: String = ""
     @Published var currentArtist: String = ""
     @Published var currentAlbum: String = ""
     @Published var currentDuration: String = ""

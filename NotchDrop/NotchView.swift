@@ -36,7 +36,7 @@ struct NotchView: View {
         case .closed: 8
         case .opened: 32
         case .popping: 10
-        case .media: 10
+        case .media: 6
         }
     }
 
@@ -69,8 +69,6 @@ struct NotchView: View {
             .transition(
                 .scale.combined(
                     with: .opacity
-                ).combined(
-                    with: .offset(y: -vm.notchOpenedSize.height / 2)
                 ).animation(vm.animation)
             )
         }

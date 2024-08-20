@@ -29,5 +29,6 @@ struct NotchMediaView: View {
                 
         }
     }
+    
    
 }

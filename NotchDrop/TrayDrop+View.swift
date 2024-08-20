@@ -1,10 +1,3 @@
-//
-//  TrayDrop+View.swift
-//  NotchDrop
-//
-//  Created by 秋星桥 on 2024/7/8.
-//
-
 import SwiftUI
 
 struct TrayView: View {
@@ -34,24 +27,21 @@ struct TrayView: View {
     }
 
     var body: some View {
-        panel
+        dropArea
             .onDrop(of: [.data], isTargeted: $targeting) { providers in
                 DispatchQueue.global().async { tvm.load(providers) }
                 return true
             }
     }
 
-    var panel: some View {
+    var dropArea: some View {
         RoundedRectangle(cornerRadius: vm.cornerRadius)
             .strokeBorder(style: StrokeStyle(lineWidth: 4, dash: [10]))
             .foregroundStyle(.white.opacity(0.1))
             .background(loading)
-            .overlay {
-                content
-                    .padding()
-            }
-            .animation(vm.animation, value: tvm.items)
-            .animation(vm.animation, value: tvm.isLoading)
+            .overlay { dropLabel }
+            .aspectRatio(1, contentMode: .fit)
+            .contentShape(Rectangle())
     }
 
     var loading: some View {
@@ -66,18 +56,7 @@ struct TrayView: View {
             )
     }
 
-    var text: String {
-        [
-            String(
-                format: NSLocalizedString("Drag files here to keep them for %@", comment: ""),
-                storageTime
-            ),
-            "&",
-            NSLocalizedString("Press Option to delete", comment: ""),
-        ].joined(separator: " ")
-    }
-
-    var content: some View {
+    var dropLabel: some View {
         Group {
             if tvm.isEmpty {
                 VStack(spacing: 8) {
@@ -86,6 +65,7 @@ struct TrayView: View {
                         .multilineTextAlignment(.center)
                         .font(.system(.headline, design: .rounded))
                 }
+                .padding()
             } else {
                 ScrollView(.horizontal) {
                     HStack(spacing: vm.spacing) {
@@ -100,12 +80,22 @@ struct TrayView: View {
             }
         }
     }
+
+    var text: String {
+        [
+            String(
+                format: NSLocalizedString("Drag files here to keep them for %@", comment: ""),
+                storageTime
+            ),
+            "&",
+            NSLocalizedString("Press Option to delete", comment: ""),
+        ].joined(separator: " ")
+    }
 }
 
 #Preview {
-    NotchContentView(vm: .init())
-        .padding()
-        .frame(width: 600, height: 240, alignment: .center)
+    TrayView(vm: .init())
+        .frame(width: 240, height: 240, alignment: .center) // Set the frame to be square like AirDropView
         .background(.black)
         .preferredColorScheme(.dark)
 }
