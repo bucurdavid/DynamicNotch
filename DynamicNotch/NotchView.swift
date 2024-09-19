@@ -2,7 +2,6 @@ import SwiftUI
 
 struct NotchView: View {
     @StateObject var vm: NotchViewModel
-    @ObservedObject var mediaPlayer = CurrentMediaPlayer()
 
     @State var dropTargeting: Bool = false
 
@@ -59,7 +58,7 @@ struct NotchView: View {
                     .zIndex(1) // Ensure this is above the notch
                 } else if vm.status == .media {
                     VStack(spacing: vm.spacing) {
-                        NotchMediaView(mediaPlayer: mediaPlayer)
+                        NotchMediaView(mediaPlayer: vm.currentMediaPlayer)
                             .background(Color.black)
                             .cornerRadius(notchCornerRadius)
                     }

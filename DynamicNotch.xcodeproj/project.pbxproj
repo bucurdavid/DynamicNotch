@@ -234,6 +234,7 @@
 				5044EEA52C3B174100071C5C /* XCRemoteSwiftPackageReference "swift-collections" */,
 				504A5D7E2C59EC2D004E8297 /* XCRemoteSwiftPackageReference "LaunchAtLogin-Modern" */,
 				56FA080F2C736FB500D509D1 /* XCRemoteSwiftPackageReference "MediaRemote" */,
+				5656964D2C74A34A0087B27F /* XCRemoteSwiftPackageReference "AudioKit" */,
 			);
 			productRefGroup = 504381812C3A86EA000ED325 /* Products */;
 			projectDirPath = "";
@@ -429,7 +430,7 @@
 				"CODE_SIGN_IDENTITY[sdk=macosx*]" = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
-				CURRENT_PROJECT_VERSION = 0;
+				CURRENT_PROJECT_VERSION = 4;
 				DEVELOPMENT_TEAM = T5F34Z92B7;
 				ENABLE_HARDENED_RUNTIME = YES;
 				ENABLE_PREVIEWS = YES;
@@ -443,7 +444,7 @@
 					"@executable_path/../Frameworks",
 				);
 				MACOSX_DEPLOYMENT_TARGET = 14.0;
-				MARKETING_VERSION = 1.0.0;
+				MARKETING_VERSION = 1.0.2;
 				PRODUCT_BUNDLE_IDENTIFIER = wiki.qaq.DynamicNotch;
 				PRODUCT_NAME = DynamicNotch;
 				SWIFT_EMIT_LOC_STRINGS = YES;
@@ -460,10 +461,11 @@
 				"CODE_SIGN_IDENTITY[sdk=macosx*]" = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
-				CURRENT_PROJECT_VERSION = 0;
+				CURRENT_PROJECT_VERSION = 4;
 				DEVELOPMENT_TEAM = T5F34Z92B7;
 				ENABLE_HARDENED_RUNTIME = YES;
 				ENABLE_PREVIEWS = YES;
+				GCC_OPTIMIZATION_LEVEL = fast;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = DynamicNotch/Info.plist;
 				INFOPLIST_KEY_CFBundleDisplayName = DynamicNotch;
@@ -474,7 +476,7 @@
 					"@executable_path/../Frameworks",
 				);
 				MACOSX_DEPLOYMENT_TARGET = 14.0;
-				MARKETING_VERSION = 1.0.0;
+				MARKETING_VERSION = 1.0.2;
 				PRODUCT_BUNDLE_IDENTIFIER = wiki.qaq.DynamicNotch;
 				PRODUCT_NAME = DynamicNotch;
 				SWIFT_EMIT_LOC_STRINGS = YES;
@@ -536,6 +538,14 @@
 			requirement = {
 				branch = main;
 				kind = branch;
+			};
+		};
+		5656964D2C74A34A0087B27F /* XCRemoteSwiftPackageReference "AudioKit" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/AudioKit/AudioKit";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 5.6.4;
 			};
 		};
 		56FA080F2C736FB500D509D1 /* XCRemoteSwiftPackageReference "MediaRemote" */ = {

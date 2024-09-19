@@ -126,7 +126,7 @@ extension NotchViewModel {
             .store(in: &cancellables)
 
      
-        currentMediaPlayer?.$isPlaying
+        currentMediaPlayer.$isPlaying
             .receive(on: DispatchQueue.main)
             .sink { [weak self] isPlaying in
                 guard let self = self else { return }
@@ -147,7 +147,7 @@ extension NotchViewModel {
     }
 
     func isMediaPlaying() -> Bool {
-        return self.currentMediaPlayer?.isPlaying ?? false
+        return self.currentMediaPlayer.isPlaying
     }
 
     func destroy() {

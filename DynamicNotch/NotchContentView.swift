@@ -12,7 +12,7 @@ struct NotchContentView: View {
             switch vm.contentType {
             case .normal:
                 HStack(spacing: vm.spacing) {
-                    CurrentMediaPlayerView(mediaPlayer: CurrentMediaPlayer())
+                    CurrentMediaPlayerView(mediaPlayer: vm.currentMediaPlayer)
                     AirDropView(vm: vm)
                     TrayView(vm: vm)
                 }

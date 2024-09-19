@@ -7,12 +7,12 @@ import SwiftUI
 class NotchViewModel: NSObject, ObservableObject {
     var cancellables: Set<AnyCancellable> = []
     let inset: CGFloat
-    @Published var currentMediaPlayer: CurrentMediaPlayer?
+    @Published var currentMediaPlayer: CurrentMediaPlayer
 
     init(inset: CGFloat = -4) {
         self.inset = inset
-        super.init()
         self.currentMediaPlayer = CurrentMediaPlayer()
+        super.init()
         setupCancellables()
         
     }
